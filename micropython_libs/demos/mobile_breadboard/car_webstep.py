@@ -16,8 +16,12 @@ class CarWebstep(Car):
 
     async def honk(self, duration_ms=500):
         horn = self.horn
-        horn.duty(100)
-        await asyncio.sleep_ms(duration_ms)
+        horn.duty(3)
+        dur = duration_ms//10
+        for i in range(10):
+            horn.freq(100+ i*40)
+            await asyncio.sleep_ms(dur)
+        horn.freq(300)
         horn.duty(0)
 
     async def start_engine(self):
@@ -25,6 +29,11 @@ class CarWebstep(Car):
         while True:
             self.mqtt.subscribe('TDC2018/car/#')
             await asyncio.sleep_ms(500)
+
+    async def async_update_wheels(self):
+        while True:
+            self.update_wheels()
+            await asyncio.sleep_ms(200)
 
     def datacb(self, msg):
         (msg_id, topic, message) = msg
@@ -68,6 +77,7 @@ def main():
     # c.subscribe_mqtt()
     loop = asyncio.get_event_loop()
     loop.create_task(c.start_engine())
+    loop.create_task(c.async_update_wheels())
     loop.create_task(ent_system.play_demo())
     loop.run_forever()
 
