@@ -14,7 +14,7 @@ class Car:
         self.left_wheel = PWM(Pin(pin_left_wheel), freq=50, duty=0)
         self.right_wheel = PWM(Pin(pin_right_wheel), freq=50, duty=0)
 
-        self.speed = 40 # 0-100%
+        self.speed = 70 # 0-100%
         self._mode = self.STOP
         self.mode_duration_ms = 500
         self.mode_until = ticks_ms()
