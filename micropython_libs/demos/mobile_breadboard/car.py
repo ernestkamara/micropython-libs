@@ -1,5 +1,5 @@
-from machine import Timer
-from utime import ticks_ms, ticks_diff
+from machine import Timer, Pin, PWM
+from utime import sleep_ms, ticks_ms, ticks_diff, ticks_add
 import micropython
 micropython.alloc_emergency_exception_buf(100)
 
@@ -10,19 +10,19 @@ class Car:
     LEFT = 2
     RIGHT = 3
 
-    def __init__(self, left_wheel, right_wheel):
-        self.left_wheel = left_wheel
-        self.right_wheel = right_wheel
+    def __init__(self, pin_left_wheel, pin_right_wheel):
+        self.left_wheel = PWM(Pin(pin_left_wheel), freq=50, duty=0)
+        self.right_wheel = PWM(Pin(pin_right_wheel), freq=50, duty=0)
 
-        self.speed = 0
-        self.mode = self.STOP
+        self.speed = 40 # 0-100%
+        self._mode = self.STOP
         self.mode_duration_ms = 500
         self.mode_until = ticks_ms()
 
     def update_wheels(self):
-        if ticks_diff(self.mode_until, ticks_ms) < 0:
-            self.mode = self.STOP
 
+        if ticks_diff(self.mode_until, ticks_ms()) < 0:
+            self._mode = self.STOP
         if self._mode == self.STOP:
             self.brake()
         elif self._mode == self.FORWARD:
@@ -47,12 +47,15 @@ class Car:
     def mode(self, value):
         if value in (self.STOP, self.FORWARD, self.LEFT, self.RIGHT):
             self._mode = value
-            self.mode_until = ticks_diff(ticks_ms(), self.mode_duration_ms)
+            self.mode_until = ticks_add(ticks_ms(), self.mode_duration_ms)
             self.update_wheels()
         else:
             raise Exception("Invalid value for 'mode'")
 
-    def start_engine(self, update_freq_ms=100):
-        timer = Timer(-1)
-        timer.init(period=update_freq_ms, mode=Timer.PERIODIC, callback=lambda t: self.update_wheels)
-
+    # def cb(self, timer):
+    #     self.update_wheels()
+    #
+    # def start_engine(self, update_freq_ms=100):
+    #     t = Timer(2)
+    #     t.init(period=update_freq_ms, mode=t.PERIODIC, callback=lambda t: self.update_wheels)
+    #     self.t = t
