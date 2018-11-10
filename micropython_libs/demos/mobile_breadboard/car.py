@@ -1,6 +1,7 @@
 from machine import Timer, Pin, PWM
 from utime import sleep_ms, ticks_ms, ticks_diff, ticks_add
-
+import pin_definitions as p
+from machine import Timer
 
 class Car:
     STOP = 0
@@ -51,3 +52,12 @@ class Car:
             raise Exception("Invalid value for 'mode'")
 
 
+if __name__ == "__main__":
+    c = Car(p.PIN_WHEEL_LEFT, p.PIN_WHEEL_RIGHT)
+    t = Timer(2)
+
+    def update_car(timer):
+        global c
+        c.update_wheels()
+
+    t.init(period=100, mode=t.PERIODIC, callback=update_car)
