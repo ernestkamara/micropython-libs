@@ -13,6 +13,7 @@ class CarWebstep(Car):
         super().__init__(pin_left_wheel, pin_right_wheel)
         self.horn = PWM(Pin(pin_horn), freq=300, duty=0)
         self.entertainment = entertainment
+        self.speed = 100
 
     async def honk(self, duration_ms=500):
         horn = self.horn
@@ -28,7 +29,7 @@ class CarWebstep(Car):
         await self.honk()
         while True:
             self.mqtt.subscribe('TDC2018/car/#')
-            await asyncio.sleep_ms(500)
+            await asyncio.sleep_ms(1000)
 
     async def async_update_wheels(self):
         while True:
@@ -48,7 +49,11 @@ class CarWebstep(Car):
             self.mode = self.STOP
 
     def connect_mqtt(self):
-        mqtt = network.mqtt("mosq-pub", "mqtt://test.mosquitto.org", cleansession=True, data_cb=self.datacb)
+        free_brokers = [
+            'iot.eclipse.org',
+            "mqtt://test.mosquitto.org",
+        ]
+        mqtt = network.mqtt("mosq-pub", free_brokers[1], cleansession=True, data_cb=self.datacb)
 
         # Connect to MQTT
         mqtt.start()
@@ -72,13 +77,21 @@ def main():
     ent_system = get_system()
 
     c = CarWebstep(p.PIN_WHEEL_LEFT, p.PIN_WHEEL_RIGHT, p.PIN_HORN, ent_system)
-    wifi(ssid='Choice-guest')
+    d = ent_system.display
+
+    d.fill(0)
+    d.text('MQTT', 0, 0, 1)
+    d.show()
+
     c.connect_mqtt()
-    # c.subscribe_mqtt()
+
     loop = asyncio.get_event_loop()
     loop.create_task(c.start_engine())
     loop.create_task(c.async_update_wheels())
     loop.create_task(ent_system.play_demo())
     loop.run_forever()
 
-main()
+
+if __name__ == "__main__":
+    wifi(ssid='kubernetes lifeline', pwd='workwork')
+    main()

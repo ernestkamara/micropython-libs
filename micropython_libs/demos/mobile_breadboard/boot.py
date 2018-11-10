@@ -20,6 +20,7 @@ def wifi(ssid="Clarion-Connect", pwd=""):
         if tmo == 0:
             print("failed to connect to WIFI")
             break
+            return False
     if tmo > 0:
         ifcfg = sta_if.ifconfig()
         print("WiFi started, IP:", ifcfg[0])

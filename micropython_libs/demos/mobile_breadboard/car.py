@@ -1,7 +1,5 @@
 from machine import Timer, Pin, PWM
 from utime import sleep_ms, ticks_ms, ticks_diff, ticks_add
-import micropython
-micropython.alloc_emergency_exception_buf(100)
 
 
 class Car:
@@ -52,10 +50,4 @@ class Car:
         else:
             raise Exception("Invalid value for 'mode'")
 
-    # def cb(self, timer):
-    #     self.update_wheels()
-    #
-    # def start_engine(self, update_freq_ms=100):
-    #     t = Timer(2)
-    #     t.init(period=update_freq_ms, mode=t.PERIODIC, callback=lambda t: self.update_wheels)
-    #     self.t = t
+
