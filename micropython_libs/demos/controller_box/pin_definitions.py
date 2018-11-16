@@ -13,69 +13,60 @@ mappings = {
     'TDI': 12,
 }
 
-SPI_SCK =
-SPI_MOSI =
-SPI_MISO =
+SPI_SCK = 5
+SPI_MOSI = 18
+SPI_MISO = 19
 
-BUTTON_LEFT =
-BUTTON_RIGHT =
+BUTTON_LEFT = mappings['TCK']
+BUTTON_RIGHT = mappings['TMS']
 
-JOYSTICK_X =
-JOYSTICK_Y =
-JOYSTIC_SW =
+JOYSTICK_X = 32
+JOYSTICK_Y = 39
+JOYSTIC_SW = mappings['SVN']
 
-MIC =
+MIC = 33
 
-ENCODER_CLK =
-ENCODER_DT =
-ENCODER_SW =
+ENCODER_CLK = mappings['SVP'] #36
+ENCODER_DT = 15
+ENCODER_SW = 27
 
-SSD1351_DC =
-SSD1351_RST =
-SSD1351_CS =
+SSD1351_DC = 25
+SSD1351_RST = 26
+SSD1351_CS = 4
 
-I2C_SCL =
-I2C_SDA =
+I2C_SCL = 0
+I2C_SDA = 0
 
-BUZZER =
-MICRO_SD_CS =
-GY_9250 _CS =
-
-
+BUZZER = 0
+MICRO_SD_CS = 14
+GY_9250_CS = 0
 
 
-pins_l = [
-    mappings['SVP'],
-    mappings['SVN'],
-    26,
-    35,
-    18,
-    33,
-    19,
-    34,
-    23,
-    mappings['TMS'],
-    5,
-    mappings['TCK'],
-]
-
-pins_r = [
-    27,
-    22,
-    25,
-    21,
-    32,
-    16,
-    mappings['TDI'],
-    17,
-    4,
-    2,
-    mappings['TDO'],
-]
-
-from machine import Pin
-def check(pin):
-    b = Pin(pin, Pin.IN)
-    print(b.value(), pin)
-
-
+# pins_l = [
+#     mappings['SVP'],
+#     mappings['SVN'],
+#     26,
+#     35,
+#     18,
+#     33,
+#     19,
+#     34,
+#     23,
+#     mappings['TMS'],
+#     5,
+#     mappings['TCK'],
+# ]
+#
+# pins_r = [
+#     27,
+#     22,
+#     25,
+#     21,
+#     32,
+#     16,
+#     mappings['TDI'],
+#     17,
+#     4,
+#     2,
+#     mappings['TDO'],
+# ]
