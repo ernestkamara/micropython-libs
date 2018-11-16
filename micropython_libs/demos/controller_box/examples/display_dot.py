@@ -19,7 +19,6 @@ def display_dot():
         x = 127 - (max(6, min(120, int(joy_x.read()/32))))
         y = max(6, min(120, int(joy_y.read()/32)))
         display.clear(black)
-        print(x, y)
         display.fill_circle(x, y, 6, color)
         time.sleep(0.01)
 
