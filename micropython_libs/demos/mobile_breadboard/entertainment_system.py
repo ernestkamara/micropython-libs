@@ -14,7 +14,6 @@ class Display(max7219.Matrix8x8):
         super().__init__(self.spi, Pin(pin_display_cs), 4)
         self.fill(0)
         self.show()
-        self.max_idx = 0
 
     def draw_matrix(self, buf):
         for i in range(len(buf)):

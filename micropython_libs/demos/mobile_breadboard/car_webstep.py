@@ -73,7 +73,7 @@ class CarWebstep(Car):
         self.mqtt = mqtt
 
 
-def main():
+def get_car():
     ent_system = get_system()
 
     c = CarWebstep(p.PIN_WHEEL_LEFT, p.PIN_WHEEL_RIGHT, p.PIN_HORN, ent_system)
@@ -82,16 +82,26 @@ def main():
     d.fill(0)
     d.text('MQTT', 0, 0, 1)
     d.show()
+    return c
 
+def start_car(c):
     c.connect_mqtt()
 
     loop = asyncio.get_event_loop()
     loop.create_task(c.start_engine())
     loop.create_task(c.async_update_wheels())
-    loop.create_task(ent_system.play_demo())
+    loop.create_task(c.entertainment.play_demo())
     loop.run_forever()
 
 
 if __name__ == "__main__":
-    wifi(ssid='kubernetes lifeline', pwd='workwork')
-    main()
+    c = get_car()
+
+    c.horn.duty(100)
+    print('horn on')
+    utime.sleep(0.1)
+    c.horn.duty(0)
+
+    wifi(ssid='Work-Work by ITsjefen', pwd='')
+    print('horn off')
+    start_car(c)
