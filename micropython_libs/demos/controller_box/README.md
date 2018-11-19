@@ -1,13 +1,4 @@
-## ESP32:
-
-pins 34~39 do not have pull-up or pull-down circuitry
-
-https://github.com/loboris/MicroPython_ESP32_psRAM_LoBo/wiki/adc
-
-ADC1 (8 channels, attached to GPIOs 32 - 39)
-ADC2 (10 channels, attached to GPIOs 0, 2, 4, 12 - 15 and 25 - 27).
-
-ADC1 should be used since ADC2 is used by WiFi driver
+# Controller box demo
 
 ## Components
 
@@ -49,4 +40,18 @@ ADC1 should be used since ADC2 is used by WiFi driver
 ### Tasks
 
 1. Connect to wifi and install a package from `upip`
-- 
+
+```python
+wifi(ssid=<SSID>, pwd=<PWD>)
+
+import upip
+upip.install('micropython-umqtt.simple')
+```
+
+2. Control mobile breadboard over MQTT
+
+package: umqtt.simple
+
+host: <HOST>
+user: <USER>
+password: <PWD>
