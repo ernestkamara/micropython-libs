@@ -1,5 +1,36 @@
 # Controller box demo
 
+## Tools
+
+### File transfer
+
+[ampy](https://github.com/adafruit/ampy): File transfer to/from microcontroller over USB (UART)
+
+### Serial terminal
+
+Communication to device over USB (UART)
+- [Picocom](https://github.com/npat-efault/picocom) (Linux)
+
+`picocom -b115200 /dev/ttyUSB0`
+
+- Putty (Windows)
+
+ssh connection
+
+- [Webrepl](https://github.com/micropython/webrepl) (file transfer and terminal over websockets)
+
+
+### udev permission (Linux)
+
+Allow access to the ESP32:
+
+Temporary: `sudo chown <user> /dev/ttyUSB0`
+
+Permanent (systemd): 
+
+`echo "SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"1a86\", ATTRS{idProduct}==\"7523\", MODE:=\"0666\"" > /etc/udev/rules.d/99-micropython.rules && udevadm control --reload-rules && udevadm trigger`
+
+
 ## Components
 
 - [Microphone MAX9814](https://www.aliexpress.com/item/MAX9814-Microphone-AGC-Amplifier-Board-Module-Auto-Gain-Control-for-Arduino-Programmable-Attack-and-Release-Ratio/32811696553.html?spm=a2g0s.9042311.0.0.27424c4dsZHGny)
