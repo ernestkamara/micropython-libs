@@ -6,6 +6,8 @@
 
 [ampy](https://github.com/adafruit/ampy): File transfer to/from microcontroller over USB (UART)
 
+`pip install adafruit-ampy`
+
 ### Serial terminal
 
 Communication to device over USB (UART)
