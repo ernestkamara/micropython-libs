@@ -13,32 +13,32 @@ mappings = {
     'TDI': 12,
 }
 
-SPI_SCK = 5
-SPI_MOSI = 18
+SPI_SCK = 18
+SPI_MOSI = 23
 SPI_MISO = 19
 
-BUTTON_LEFT = mappings['TCK']
-BUTTON_RIGHT = mappings['TMS']
+BUTTON_LEFT = mappings['TMS']
+BUTTON_RIGHT = 5#mappings['TMS']
 
-JOYSTICK_X = 32
-JOYSTICK_Y = 39
-JOYSTIC_SW = mappings['SVN']
+JOYSTICK_X = 35
+JOYSTICK_Y = mappings['SVN']
+JOYSTICK_SW = 33
 
-MIC = 33
+MIC = 36
 
-ENCODER_CLK = mappings['SVP'] #36
-ENCODER_DT = 15
-ENCODER_SW = 27
+ENCODER_CLK = 17 #mappings['SVP'] #36
+ENCODER_DT = 16
+ENCODER_SW = 21
 
-SSD1351_DC = 25
-SSD1351_RST = 26
-SSD1351_CS = 4
+SSD1351_RST = mappings['TDI']
+SSD1351_DC = 4
+SSD1351_CS = 32
 
-I2C_SCL = 0
-I2C_SDA = 0
+I2C_SCL = 27
+I2C_SDA = 25
 
-BUZZER = 0
-MICRO_SD_CS = 14
+BUZZER = mappings['TCK']
+MICRO_SD_CS = 2
 GY_9250_CS = 0
 
 
